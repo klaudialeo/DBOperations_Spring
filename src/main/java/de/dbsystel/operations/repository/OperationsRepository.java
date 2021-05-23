@@ -26,6 +26,7 @@ public class OperationsRepository {
 
     /**
      * Get the instance of {@link OperationsDTO} by its code
+     * @param code operation code
      * @return the corresponding instance of {@link OperationsDTO}
      */
     public OperationsDTO findByCode(String code) {

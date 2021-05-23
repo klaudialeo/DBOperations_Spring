@@ -14,12 +14,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	/**
 	 * Allows CORS from the React frontend component
+	 * @param registry CORS registry
 	 */
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
-			.allowedOrigins("http://localhost:3000")
-			.allowedMethods("GET", "POST", "PUT", "DELETE")
-			.allowCredentials(false).maxAge(3600);
+		registry.addMapping("/**").allowedOrigins("http://localhost:3000")
+				.allowedMethods("GET", "POST", "PUT", "DELETE").allowCredentials(false).maxAge(3600);
 	}
 }
