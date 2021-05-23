@@ -1,7 +1,7 @@
 package de.dbsystel.operations.service;
 
 import de.dbsystel.operations.model.OperationsDTO;
-import de.dbsystel.operations.repository.OperationsRepository;
+import de.dbsystel.operations.repository.IOperationsRepository;
 
 import java.util.List;
 
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 public class OperationsService implements IOperationsService {
 
     @Autowired
-    OperationsRepository operationsRepository;
+    private IOperationsRepository operationsRepository;
 
     /**
-     * Get the instance of {@link OperationsDTO} by its code from {@link OperationsRepository}
+     * Get the instance of {@link OperationsDTO} by its code from {@link IOperationsRepository}
      * @param code operation code
      * @return the corresponding instance of {@link OperationsDTO}
      */
@@ -28,7 +28,7 @@ public class OperationsService implements IOperationsService {
     }
 
     /**
-     * Get list of all available codes from {@link OperationsRepository}
+     * Get list of all available codes from {@link IOperationsRepository}
      * @return list of all available codes
      */
     @Override

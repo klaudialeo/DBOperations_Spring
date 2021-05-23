@@ -9,12 +9,12 @@ import org.springframework.stereotype.Repository;
 import de.dbsystel.operations.model.OperationsDTO;
 
 /**
- * Repository for the {@link OperationsDTO} objects
+ * Implements {@link IOperationsRepository}
  */
 @Repository
-public class OperationsRepository {
+public class OperationsRepository implements IOperationsRepository {
 
-    LinkedHashMap<String, OperationsDTO> operations;
+    private LinkedHashMap<String, OperationsDTO> operations;
 
     /**
      * Get list of all available codes
