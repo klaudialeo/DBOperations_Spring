@@ -1,6 +1,6 @@
 package de.dbsystel.operations.config;
 
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +27,7 @@ public class DataConfig {
     @Bean
     CommandLineRunner initRepository(OperationsRepository repository) {
         return args -> {
-            TreeMap<String, OperationsDTO> operations = CSVMapper.parseCSV(CSVResource);
+            LinkedHashMap<String, OperationsDTO> operations = CSVMapper.parseCSV(CSVResource);
             repository.saveAll(operations);
         };
     }

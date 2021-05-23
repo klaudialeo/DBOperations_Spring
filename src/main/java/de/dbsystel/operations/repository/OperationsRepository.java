@@ -1,6 +1,6 @@
 package de.dbsystel.operations.repository;
 
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +14,7 @@ import de.dbsystel.operations.model.OperationsDTO;
 @Repository
 public class OperationsRepository {
 
-    TreeMap<String, OperationsDTO> operations;
+    LinkedHashMap<String, OperationsDTO> operations;
 
     /**
      * Get list of all available codes
@@ -43,7 +43,7 @@ public class OperationsRepository {
      * Save all operations
      * @param operations mapping <Code, instance of {@link OperationsDTO}>
      */
-    public void saveAll(TreeMap<String, OperationsDTO> operations) {
+    public void saveAll(LinkedHashMap<String, OperationsDTO> operations) {
         this.operations = operations;
     }
 }
