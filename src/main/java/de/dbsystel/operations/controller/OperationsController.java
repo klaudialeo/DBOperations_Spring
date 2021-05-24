@@ -27,7 +27,7 @@ public class OperationsController {
      * @return status code OK (200) and the correspondent instance of {@link OperationsDTO} as response body
      */
     @GetMapping(path = "/betriebsstelle/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> handleGetOperationByCode(@PathVariable("code") String code) {
+    public ResponseEntity<OperationsDTO> handleGetOperationByCode(@PathVariable("code") String code) {
         OperationsDTO operation = operationsService.getOperation(code.toUpperCase());
         return ResponseEntity.ok(operation);
     }
@@ -37,7 +37,7 @@ public class OperationsController {
      * @return status code OK (200) and list operation codes as response body
      */
     @GetMapping(path = "/betriebsstelle", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> handleGetAllOperations() {
+    public ResponseEntity<List<String>> handleGetAllOperations() {
         List<String> operations = operationsService.getAllOperations();
         return ResponseEntity.ok(operations);
     }

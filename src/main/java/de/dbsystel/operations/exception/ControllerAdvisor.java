@@ -17,7 +17,7 @@ public class ControllerAdvisor {
      * @return status code not found (404) and its corresponding response body message
      */
     @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<Object> handleNoHandlerFoundException() {
+    public ResponseEntity<String> handleNoHandlerFoundException() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("404 - Seite nicht gefunden");
     }
 
@@ -26,7 +26,7 @@ public class ControllerAdvisor {
      * @return status code not found (404) and its corresponding response body message
      */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleException() {
+    public ResponseEntity<String> handleException() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Leider gab es einen Fehler");
     }
 }
