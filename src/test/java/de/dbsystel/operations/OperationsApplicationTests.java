@@ -34,6 +34,8 @@ class OperationsApplicationTests {
 	private static final String SAMPLE_SHORT_NAME = "Anckelmannsplatz";
 	private static final String SAMPLE_TYPE = "Üst";
 
+	private static final String DEFAULT_PATH = "/betriebsstelle/";
+
 	private LinkedHashMap<String, OperationsDTO> operations = new LinkedHashMap<>();
 
 	@BeforeEach
@@ -50,7 +52,7 @@ class OperationsApplicationTests {
 		when(service.getOperation(SAMPLE_CODE.toUpperCase())).thenReturn(findByCode(SAMPLE_CODE.toUpperCase()));
 
 		String expectedResponse = getOperationInJSON(SAMPLE_NAME, SAMPLE_SHORT_NAME, SAMPLE_TYPE);
-		simulateTest("/betriebsstelle/" + SAMPLE_CODE, expectedResponse);
+		simulateTest(DEFAULT_PATH + SAMPLE_CODE, expectedResponse);
 	}
 
 	@Test
@@ -59,7 +61,7 @@ class OperationsApplicationTests {
 		when(service.getOperation(code.toUpperCase())).thenReturn(findByCode(code.toUpperCase()));
 
 		String expectedResponse = getOperationInJSON("", "", "");
-		simulateTest("/betriebsstelle/" + code, expectedResponse);
+		simulateTest(DEFAULT_PATH + code, expectedResponse);
 	}
 
 	@Test
@@ -69,7 +71,7 @@ class OperationsApplicationTests {
 
 		String expectedResponse = "["
 				+ String.join(",", codes.stream().map(code -> ("'" + code + "'")).collect(Collectors.toList())) + "]";
-		simulateTest("/betriebsstelle/", expectedResponse);
+		simulateTest(DEFAULT_PATH, expectedResponse);
 	}
 
 	private void simulateTest(String path, String response) throws Exception {
