@@ -6,7 +6,7 @@ import java.util.List;
 import de.dbsystel.operations.model.OperationsDTO;
 
 /**
- * Interface of the repository for the {@link OperationsDTO} objects
+ * Interface of the repository {@link OperationsRepository} for the {@link OperationsDTO} objects
  */
 public interface IOperationsRepository {
 
