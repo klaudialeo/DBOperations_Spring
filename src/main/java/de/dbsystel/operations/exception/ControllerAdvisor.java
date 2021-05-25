@@ -14,7 +14,9 @@ public class ControllerAdvisor {
 
     /**
      * Fired when the requested page is not mapped / found
-     * @return status code not found (404) and its corresponding response body message
+     * 
+     * @return status code not found (404) and its corresponding response body
+     *         message
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<String> handleNoHandlerFoundException() {
@@ -23,7 +25,9 @@ public class ControllerAdvisor {
 
     /**
      * Fired when there are any other errors
-     * @return status code not found (404) and its corresponding response body message
+     * 
+     * @return status code not found (404) and its corresponding response body
+     *         message
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException() {

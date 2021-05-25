@@ -1,6 +1,7 @@
 package de.dbsystel.operations.repository;
 
-import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,36 +15,40 @@ import de.dbsystel.operations.model.OperationsDTO;
 @Repository
 public class OperationsRepository implements IOperationsRepository {
 
-    private LinkedHashMap<String, OperationsDTO> operations;
+    private Map<String, List<OperationsDTO>> operations;
 
     /**
-     * Get list of all available codes
-     * @return list of all available codes
+     * Get list of all available codes sorted alphabetically
+     * 
+     * @return list of all available codes sorted alphabetically
      */
     public List<String> getAllCodes() {
-        return operations.keySet().stream().collect(Collectors.toList());
+        return operations.keySet().stream().sorted().collect(Collectors.toList());
     }
 
     /**
-     * Get the instance of {@link OperationsDTO} by its code
+     * Get list of instances of {@link OperationsDTO} by its code
+     * 
      * @param code operation code
-     * @return the corresponding instance of {@link OperationsDTO}
+     * @return list of corresponding instances of {@link OperationsDTO}
      */
-    public OperationsDTO findByCode(String code) {
-        OperationsDTO operation = operations.get(code);
+    public List<OperationsDTO> findByCode(String code) {
+        List<OperationsDTO> operation = operations.get(code);
 
         if (operation != null) {
             return operation;
         }
 
-        return OperationsDTO.builder().build();
+        OperationsDTO noOperation = OperationsDTO.builder().build();
+        return Collections.singletonList(noOperation);
     }
 
     /**
      * Save all operations
-     * @param operations mapping <Code, instance of {@link OperationsDTO}>
+     * 
+     * @param operations mapping <Code, list of instances of {@link OperationsDTO}>
      */
-    public void saveAll(LinkedHashMap<String, OperationsDTO> operations) {
+    public void saveAll(Map<String, List<OperationsDTO>> operations) {
         this.operations = operations;
     }
 }

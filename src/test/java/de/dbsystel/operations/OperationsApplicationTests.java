@@ -16,8 +16,11 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.LinkedHashMap;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @WebMvcTest(controllers = { OperationsController.class })
@@ -36,7 +39,7 @@ class OperationsApplicationTests {
 
 	private static final String DEFAULT_PATH = "/betriebsstelle/";
 
-	private LinkedHashMap<String, OperationsDTO> operations = new LinkedHashMap<>();
+	private Map<String, List<OperationsDTO>> operations = new HashMap<>();
 
 	@BeforeEach
 	void init() {
@@ -44,7 +47,7 @@ class OperationsApplicationTests {
 
 		OperationsDTO sampleOperation = OperationsDTO.builder().name(SAMPLE_NAME).shortName(SAMPLE_SHORT_NAME)
 				.type(SAMPLE_TYPE).build();
-		operations.put(SAMPLE_CODE.toUpperCase(), sampleOperation);
+		operations.put(SAMPLE_CODE.toUpperCase(), Arrays.asList(sampleOperation));
 	}
 
 	@Test
@@ -66,7 +69,7 @@ class OperationsApplicationTests {
 
 	@Test
 	void testGetAllOperationCenter() throws Exception {
-		List<String> codes = operations.keySet().stream().collect(Collectors.toList());
+		List<String> codes = operations.keySet().stream().sorted().collect(Collectors.toList());
 		when(service.getAllOperations()).thenReturn(codes);
 
 		String expectedResponse = "["
@@ -79,15 +82,16 @@ class OperationsApplicationTests {
 				.andExpect(content().json(response));
 	}
 
-	private OperationsDTO findByCode(String code) {
-		OperationsDTO operation = operations.get(code);
+	private List<OperationsDTO> findByCode(String code) {
+        List<OperationsDTO> operation = operations.get(code);
 
-		if (operation != null) {
-			return operation;
-		}
+        if (operation != null) {
+            return operation;
+        }
 
-		return OperationsDTO.builder().build();
-	}
+		OperationsDTO noOperation = OperationsDTO.builder().build();
+        return Collections.singletonList(noOperation);
+    }
 
 	private String getOperationInJSON(String name, String shortName, String type) {
 		return "{'Name': '" + name + "', 'Kurzname': '" + shortName + "', 'Typ': '" + type + "'}";

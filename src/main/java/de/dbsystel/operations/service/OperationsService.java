@@ -18,17 +18,20 @@ public class OperationsService implements IOperationsService {
     private IOperationsRepository operationsRepository;
 
     /**
-     * Get the instance of {@link OperationsDTO} by its code from {@link IOperationsRepository}
+     * Get list of instances of {@link OperationsDTO} by its code from
+     * {@link IOperationsRepository}
+     * 
      * @param code operation code
-     * @return the corresponding instance of {@link OperationsDTO}
+     * @return list of corresponding instances of {@link OperationsDTO}
      */
     @Override
-    public OperationsDTO getOperation(String code) {
+    public List<OperationsDTO> getOperation(String code) {
         return operationsRepository.findByCode(code);
     }
 
     /**
      * Get list of all available codes from {@link IOperationsRepository}
+     * 
      * @return list of all available codes
      */
     @Override

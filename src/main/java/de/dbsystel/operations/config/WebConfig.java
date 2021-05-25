@@ -14,6 +14,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	/**
 	 * Allows CORS from the React frontend component
+	 * 
 	 * @param registry CORS registry
 	 */
 	@Override
