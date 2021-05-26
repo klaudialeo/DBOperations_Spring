@@ -27,12 +27,12 @@ public class ControllerAdvisor {
 	/**
 	 * Fired when there are any other errors
 	 * 
-	 * @return status code not found (404) and its corresponding response body
+	 * @return status code internal server error (500) and its corresponding response body
 	 *         message
 	 */
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> handleException() {
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 		                     .body("Leider gab es einen Fehler");
 	}
 }
