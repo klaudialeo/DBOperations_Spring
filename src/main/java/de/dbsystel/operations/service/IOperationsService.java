@@ -10,19 +10,19 @@ import de.dbsystel.operations.model.OperationsDTO;
  */
 public interface IOperationsService {
 
-    /**
-     * Get list of instances of {@link OperationsDTO} by its code from
-     * {@link IOperationsRepository}
-     * 
-     * @param code operation code
-     * @return list of corresponding instances of {@link OperationsDTO}
-     */
-    public List<OperationsDTO> getOperation(String code);
+	/**
+	 * Get list of instances of {@link OperationsDTO} by its code from
+	 * {@link IOperationsRepository}
+	 * 
+	 * @param code operation code
+	 * @return list of corresponding instances of {@link OperationsDTO}
+	 */
+	public List<OperationsDTO> getOperation(String code);
 
-    /**
-     * Get list of all available codes from {@link IOperationsRepository}
-     * 
-     * @return list of all available codes
-     */
-    public List<String> getAllOperations();
+	/**
+	 * Get list of all available codes from {@link IOperationsRepository}
+	 * 
+	 * @return list of all available codes
+	 */
+	public List<String> getAllOperations();
 }

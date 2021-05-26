@@ -14,28 +14,28 @@ import org.springframework.stereotype.Service;
 @Service
 public class OperationsService implements IOperationsService {
 
-    @Autowired
-    private IOperationsRepository operationsRepository;
+	@Autowired
+	private IOperationsRepository operationsRepository;
 
-    /**
-     * Get list of instances of {@link OperationsDTO} by its code from
-     * {@link IOperationsRepository}
-     * 
-     * @param code operation code
-     * @return list of corresponding instances of {@link OperationsDTO}
-     */
-    @Override
-    public List<OperationsDTO> getOperation(String code) {
-        return operationsRepository.findByCode(code);
-    }
+	/**
+	 * Get list of instances of {@link OperationsDTO} by its code from
+	 * {@link IOperationsRepository}
+	 * 
+	 * @param code operation code
+	 * @return list of corresponding instances of {@link OperationsDTO}
+	 */
+	@Override
+	public List<OperationsDTO> getOperation(String code) {
+		return operationsRepository.findByCode(code);
+	}
 
-    /**
-     * Get list of all available codes from {@link IOperationsRepository}
-     * 
-     * @return list of all available codes
-     */
-    @Override
-    public List<String> getAllOperations() {
-        return operationsRepository.getAllCodes();
-    }
+	/**
+	 * Get list of all available codes from {@link IOperationsRepository}
+	 * 
+	 * @return list of all available codes
+	 */
+	@Override
+	public List<String> getAllOperations() {
+		return operationsRepository.getAllCodes();
+	}
 }

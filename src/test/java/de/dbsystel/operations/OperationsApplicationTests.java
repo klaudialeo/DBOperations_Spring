@@ -37,6 +37,7 @@ class OperationsApplicationTests {
 	private static final String SAMPLE_SHORT_NAME = "Anckelmannsplatz";
 	private static final String SAMPLE_TYPE = "Üst";
 
+	private static final String QUOTE = "'";
 	private static final String DEFAULT_PATH = "/betriebsstelle/";
 
 	private Map<String, List<OperationsDTO>> operations = new HashMap<>();
@@ -45,8 +46,12 @@ class OperationsApplicationTests {
 	void init() {
 		assertThat(service).isNotNull();
 
-		OperationsDTO sampleOperation = OperationsDTO.builder().name(SAMPLE_NAME).shortName(SAMPLE_SHORT_NAME)
-				.type(SAMPLE_TYPE).build();
+		OperationsDTO sampleOperation = OperationsDTO.builder()
+		                                             .name(SAMPLE_NAME)
+		                                             .shortName(SAMPLE_SHORT_NAME)
+		                                             .type(SAMPLE_TYPE)
+		                                             .build();
+		
 		operations.put(SAMPLE_CODE.toUpperCase(), Arrays.asList(sampleOperation));
 	}
 
@@ -54,7 +59,7 @@ class OperationsApplicationTests {
 	void testGetOperationCenterFound() throws Exception {
 		when(service.getOperation(SAMPLE_CODE.toUpperCase())).thenReturn(findByCode(SAMPLE_CODE.toUpperCase()));
 
-		String expectedResponse = getOperationInJSON(SAMPLE_NAME, SAMPLE_SHORT_NAME, SAMPLE_TYPE);
+		String expectedResponse = getOperationInJSON(QUOTE + SAMPLE_NAME + QUOTE, QUOTE + SAMPLE_SHORT_NAME + QUOTE, QUOTE + SAMPLE_TYPE + QUOTE);
 		simulateTest(DEFAULT_PATH + SAMPLE_CODE, expectedResponse);
 	}
 
@@ -63,37 +68,48 @@ class OperationsApplicationTests {
 		String code = "Klaudia";
 		when(service.getOperation(code.toUpperCase())).thenReturn(findByCode(code.toUpperCase()));
 
-		String expectedResponse = getOperationInJSON("", "", "");
+		String expectedResponse = getOperationInJSON(null, null, null);
 		simulateTest(DEFAULT_PATH + code, expectedResponse);
 	}
 
 	@Test
 	void testGetAllOperationCenter() throws Exception {
-		List<String> codes = operations.keySet().stream().sorted().collect(Collectors.toList());
+		List<String> codes = operations.keySet()
+		                               .stream()
+		                               .sorted()
+		                               .collect(Collectors.toList());
+		
 		when(service.getAllOperations()).thenReturn(codes);
 
-		String expectedResponse = "["
-				+ String.join(",", codes.stream().map(code -> ("'" + code + "'")).collect(Collectors.toList())) + "]";
+		List<String> codesWithQuotes = codes.stream()
+		                                    .map(code -> (QUOTE + code + QUOTE))
+		                                    .collect(Collectors.toList());
+
+		String expectedResponse = "[" + String.join(",", codesWithQuotes) + "]";
 		simulateTest(DEFAULT_PATH, expectedResponse);
 	}
 
 	private void simulateTest(String path, String response) throws Exception {
-		mockMvc.perform(get(path)).andExpect(status().isOk()).andExpect(content().contentType("application/json"))
-				.andExpect(content().json(response));
+		mockMvc.perform(get(path))
+		       .andExpect(status().isOk())
+		       .andExpect(content().contentType("application/json"))
+		       .andExpect(content().json(response));
 	}
 
 	private List<OperationsDTO> findByCode(String code) {
-        List<OperationsDTO> operation = operations.get(code);
+		List<OperationsDTO> operation = operations.get(code);
 
-        if (operation != null) {
-            return operation;
-        }
+		if (operation != null) {
+			return operation;
+		}
 
-		OperationsDTO noOperation = OperationsDTO.builder().build();
-        return Collections.singletonList(noOperation);
-    }
+		OperationsDTO noOperation = OperationsDTO.builder()
+		                                         .build();
+		
+		return Collections.singletonList(noOperation);
+	}
 
 	private String getOperationInJSON(String name, String shortName, String type) {
-		return "{'Name': '" + name + "', 'Kurzname': '" + shortName + "', 'Typ': '" + type + "'}";
+		return "{'Name': " + name + ", 'Kurzname': " + shortName + ", 'Typ': " + type + "}";
 	}
 }
