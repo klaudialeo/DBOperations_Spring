@@ -1,8 +1,11 @@
 package de.dbsystel.operations.model;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,19 +47,21 @@ public class OperationsDTO {
 
 	@CsvBindByName(column = "UIC")
 	@JsonIgnore
-	private String uic;
+	private int uic;
 
 	@CsvBindByName(column = "RB")
 	@JsonIgnore
-	private String rb;
+	private int rb;
 
+	@CsvDate(value = "yyyyMMdd")
 	@CsvBindByName(column = "gültig von")
 	@JsonIgnore
-	private String validFrom;
+	private LocalDate validFrom;
 
+	@CsvDate(value = "yyyyMMdd")
 	@CsvBindByName(column = "gültig bis")
 	@JsonIgnore
-	private String validUntil;
+	private LocalDate validUntil;
 
 	@CsvBindByName(column = "Netz-Key")
 	@JsonIgnore
